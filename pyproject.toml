@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yttext"
+version = "1.0.0"
+description = "A lightweight CLI tool for fetching and saving YouTube video transcripts."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "youtube-transcript-api"
+]
+
+[project.scripts]
+yttext = "yttext.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
