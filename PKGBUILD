@@ -18,14 +18,13 @@ makedepends=(
 )
 
 source=(
-    "https://github.com/Asaduddeenamr2006/yt-transcript-tool/archive/refs/tags/v${pkgver}.tar.gz"
+    "https://codeload.github.com/Asaduddeenamr2006/yt-transcript-tool/tar.gz/refs/tags/v${pkgver}"
 )
 
 sha256sums=('SKIP')
 
 build() {
     cd "$srcdir/yt-transcript-tool-$pkgver"
-
     python -m build --wheel --no-isolation
 }
 
