@@ -21,7 +21,7 @@ source=(
     "https://codeload.github.com/Asaduddeenamr2006/yt-transcript-tool/tar.gz/refs/tags/v${pkgver}"
 )
 
-sha256sums=('SKIP')
+sha256sums=('60eb2190d909bb95a6ea6d244d6dac0b2c9d2438911fdab42108cdf25693a78e')
 
 build() {
     cd "$srcdir/yt-transcript-tool-$pkgver"
@@ -34,4 +34,7 @@ package() {
     python -m installer \
         --destdir="$pkgdir" \
         dist/*.whl
+
+    install -Dm644 LICENSE \
+        "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
