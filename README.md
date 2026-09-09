@@ -11,81 +11,57 @@ A lightweight command-line tool for fetching and saving YouTube video transcript
 * Optional timestamps for TXT output
 * Optional formatting preservation
 * Simple and lightweight CLI
-
-## Requirements
-
-* Python 3.9 or newer
-* Git
-* pipx **or** Python `venv`
+* Works on Linux, macOS, and Windows
 
 ## Installation
 
-### Option 1 — Using pipx (Recommended)
+### With pipx (recommended)
 
-`pipx` installs the application in an isolated Python environment while making the `yttext` command available globally.
+One command, straight from GitHub — no cloning needed:
 
-First, install `pipx` using your distribution's package manager or follow the official pipx installation instructions.
+```bash
+pipx install git+https://github.com/Asaduddeenamr2006/yt-transcript-tool.git
+```
 
-Then clone the repository:
+Don't have `pipx`? Follow the [pipx installation guide](https://pipx.pypa.io/latest/installation/), then run the command above.
+
+### With uv
+
+```bash
+uv tool install git+https://github.com/Asaduddeenamr2006/yt-transcript-tool.git
+```
+
+### With pip
+
+Inside a virtual environment:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate   # Linux / macOS
+# .venv\Scripts\activate    # Windows
+
+pip install git+https://github.com/Asaduddeenamr2006/yt-transcript-tool.git
+```
+
+### From a cloned repository
 
 ```bash
 git clone https://github.com/Asaduddeenamr2006/yt-transcript-tool.git
 cd yt-transcript-tool
-```
 
-Install `yttext`:
-
-```bash
 pipx install .
 ```
 
-After installation:
+### Update
 
 ```bash
-yttext --help
+pipx upgrade yttext
 ```
 
-### Option 2 — Using a Python virtual environment
-
-If you don't have `pipx`, you can use Python's built-in virtual environment support.
-
-Clone the repository:
+### Uninstall
 
 ```bash
-git clone https://github.com/Asaduddeenamr2006/yt-transcript-tool.git
-cd yt-transcript-tool
-```
-
-Create a virtual environment:
-
-```bash
-python3 -m venv .venv
-```
-
-Activate it:
-
-```bash
-source .venv/bin/activate
-```
-
-Install the package:
-
-```bash
-python -m pip install .
-```
-
-The `yttext` command is now available while the virtual environment is active.
-
-Test the installation:
-
-```bash
-yttext --help
-```
-
-To leave the virtual environment:
-
-```bash
-deactivate
+pipx uninstall yttext
 ```
 
 ## Usage
@@ -140,9 +116,7 @@ yttext "VIDEO_URL" --format json
 
 ### Disable timestamps
 
-By default, TXT transcripts include timestamps.
-
-To disable them:
+By default, TXT transcripts include timestamps. To disable them:
 
 ```bash
 yttext "VIDEO_URL" --no-timestamps
@@ -152,34 +126,6 @@ yttext "VIDEO_URL" --no-timestamps
 
 ```bash
 yttext "VIDEO_URL" --preserve-formatting
-```
-
-## Examples
-
-Fetch an English transcript:
-
-```bash
-yttext "https://www.youtube.com/watch?v=VIDEO_ID" --language en
-```
-
-Fetch an Arabic transcript:
-
-```bash
-yttext "https://www.youtube.com/watch?v=VIDEO_ID" --language ar
-```
-
-Save as JSON:
-
-```bash
-yttext "https://www.youtube.com/watch?v=VIDEO_ID" --format json
-```
-
-Save to a custom location without timestamps:
-
-```bash
-yttext "https://www.youtube.com/watch?v=VIDEO_ID" \
-    --output ~/Documents/transcript.txt \
-    --no-timestamps
 ```
 
 ## Command Reference
@@ -209,13 +155,13 @@ yttext VIDEO
 
 ## How It Works
 
-`yttext` uses the `youtube-transcript-api` Python library to retrieve available transcripts from YouTube videos.
+`yttext` uses the [`youtube-transcript-api`](https://github.com/jdepoix/youtube-transcript-api) library to retrieve available transcripts from YouTube videos.
 
 The tool processes the transcript and saves it in the selected output format.
 
 ## Error Handling
 
-If a transcript cannot be retrieved, the CLI provides possible reasons, such as:
+If a transcript cannot be retrieved, the CLI prints possible reasons, such as:
 
 * The video does not have an available transcript.
 * The selected language is unavailable.
@@ -226,6 +172,11 @@ You can try another language with:
 ```bash
 yttext "VIDEO_URL" --language LANGUAGE
 ```
+
+## Requirements
+
+* Python 3.9+ (handled automatically by pipx or uv)
+* youtube-transcript-api (installed automatically)
 
 ## Development
 
@@ -239,25 +190,14 @@ cd yt-transcript-tool
 Create a virtual environment:
 
 ```bash
-python3 -m venv .venv
-```
-
-Activate it:
-
-```bash
+python -m venv .venv
 source .venv/bin/activate
 ```
 
 Install the project in editable mode:
 
 ```bash
-python -m pip install -e .
-```
-
-Run the CLI:
-
-```bash
-yttext "https://www.youtube.com/watch?v=VIDEO_ID"
+pip install -e .
 ```
 
 ## Project Structure
@@ -267,13 +207,9 @@ yt-transcript-tool/
 ├── yttext/
 │   ├── __init__.py
 │   └── cli.py
-├── yttext.py
-├── PKGBUILD
-├── .SRCINFO
 ├── pyproject.toml
 ├── LICENSE
-├── README.md
-└── .gitignore
+└── README.md
 ```
 
 ## License
@@ -281,9 +217,3 @@ yt-transcript-tool/
 This project is licensed under the MIT License.
 
 See [LICENSE](LICENSE) for details.
-
-## Repository
-
-GitHub:
-
-https://github.com/Asaduddeenamr2006/yt-transcript-tool

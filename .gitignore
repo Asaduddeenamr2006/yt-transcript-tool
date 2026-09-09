@@ -6,7 +6,3 @@ build/
 dist/
 *.egg-info/
 *.backup
-src/
-pkg/
-*.tar.gz
-*.pkg.tar.zst

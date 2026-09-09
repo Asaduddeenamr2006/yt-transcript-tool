@@ -8,6 +8,17 @@ version = "1.0.0"
 description = "A lightweight CLI tool for fetching and saving YouTube video transcripts."
 readme = "README.md"
 requires-python = ">=3.9"
+classifiers = [
+    "Environment :: Console",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
 dependencies = [
     "youtube-transcript-api"
 ]
@@ -15,5 +26,11 @@ dependencies = [
 [project.scripts]
 yttext = "yttext.cli:main"
 
+[project.urls]
+Homepage = "https://github.com/Asaduddeenamr2006/yt-transcript-tool"
+Repository = "https://github.com/Asaduddeenamr2006/yt-transcript-tool"
+Issues = "https://github.com/Asaduddeenamr2006/yt-transcript-tool/issues"
+
 [tool.setuptools.packages.find]
 where = ["."]
+include = ["yttext*"]
