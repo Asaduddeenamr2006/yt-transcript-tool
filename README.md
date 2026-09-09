@@ -12,9 +12,42 @@ A lightweight command-line tool for fetching and saving YouTube video transcript
 * Optional formatting preservation
 * Simple and lightweight CLI
 
+## Requirements
+
+* Python 3.9 or newer
+* Git
+* pipx **or** Python `venv`
+
 ## Installation
 
-### From GitHub
+### Option 1 — Using pipx (Recommended)
+
+`pipx` installs the application in an isolated Python environment while making the `yttext` command available globally.
+
+First, install `pipx` using your distribution's package manager or follow the official pipx installation instructions.
+
+Then clone the repository:
+
+```bash
+git clone https://github.com/Asaduddeenamr2006/yt-transcript-tool.git
+cd yt-transcript-tool
+```
+
+Install `yttext`:
+
+```bash
+pipx install .
+```
+
+After installation:
+
+```bash
+yttext --help
+```
+
+### Option 2 — Using a Python virtual environment
+
+If you don't have `pipx`, you can use Python's built-in virtual environment support.
 
 Clone the repository:
 
@@ -23,16 +56,36 @@ git clone https://github.com/Asaduddeenamr2006/yt-transcript-tool.git
 cd yt-transcript-tool
 ```
 
-Install with `pipx`:
+Create a virtual environment:
 
 ```bash
-pipx install .
+python3 -m venv .venv
 ```
 
-Or install with pip:
+Activate it:
 
 ```bash
-pip install .
+source .venv/bin/activate
+```
+
+Install the package:
+
+```bash
+python -m pip install .
+```
+
+The `yttext` command is now available while the virtual environment is active.
+
+Test the installation:
+
+```bash
+yttext --help
+```
+
+To leave the virtual environment:
+
+```bash
+deactivate
 ```
 
 ## Usage
@@ -59,6 +112,8 @@ VIDEO_ID_transcript.txt
 
 ### Choose a language
 
+Specify a preferred transcript language:
+
 ```bash
 yttext "VIDEO_URL" --language en
 ```
@@ -70,6 +125,8 @@ yttext "VIDEO_URL" --language en --language ar
 ```
 
 ### Choose an output file
+
+Save the transcript to a specific location:
 
 ```bash
 yttext "VIDEO_URL" --output ~/Downloads/transcript.txt
@@ -83,6 +140,10 @@ yttext "VIDEO_URL" --format json
 
 ### Disable timestamps
 
+By default, TXT transcripts include timestamps.
+
+To disable them:
+
 ```bash
 yttext "VIDEO_URL" --no-timestamps
 ```
@@ -91,6 +152,34 @@ yttext "VIDEO_URL" --no-timestamps
 
 ```bash
 yttext "VIDEO_URL" --preserve-formatting
+```
+
+## Examples
+
+Fetch an English transcript:
+
+```bash
+yttext "https://www.youtube.com/watch?v=VIDEO_ID" --language en
+```
+
+Fetch an Arabic transcript:
+
+```bash
+yttext "https://www.youtube.com/watch?v=VIDEO_ID" --language ar
+```
+
+Save as JSON:
+
+```bash
+yttext "https://www.youtube.com/watch?v=VIDEO_ID" --format json
+```
+
+Save to a custom location without timestamps:
+
+```bash
+yttext "https://www.youtube.com/watch?v=VIDEO_ID" \
+    --output ~/Documents/transcript.txt \
+    --no-timestamps
 ```
 
 ## Command Reference
@@ -118,10 +207,25 @@ yttext VIDEO
     Show help message and exit.
 ```
 
-## Requirements
+## How It Works
 
-* Python 3.9+
-* youtube-transcript-api
+`yttext` uses the `youtube-transcript-api` Python library to retrieve available transcripts from YouTube videos.
+
+The tool processes the transcript and saves it in the selected output format.
+
+## Error Handling
+
+If a transcript cannot be retrieved, the CLI provides possible reasons, such as:
+
+* The video does not have an available transcript.
+* The selected language is unavailable.
+* YouTube changed something that affects transcript access.
+
+You can try another language with:
+
+```bash
+yttext "VIDEO_URL" --language LANGUAGE
+```
 
 ## Development
 
@@ -135,14 +239,25 @@ cd yt-transcript-tool
 Create a virtual environment:
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv
+```
+
+Activate it:
+
+```bash
 source .venv/bin/activate
 ```
 
 Install the project in editable mode:
 
 ```bash
-pip install -e .
+python -m pip install -e .
+```
+
+Run the CLI:
+
+```bash
+yttext "https://www.youtube.com/watch?v=VIDEO_ID"
 ```
 
 ## Project Structure
@@ -154,9 +269,11 @@ yt-transcript-tool/
 │   └── cli.py
 ├── yttext.py
 ├── PKGBUILD
+├── .SRCINFO
 ├── pyproject.toml
 ├── LICENSE
-└── README.md
+├── README.md
+└── .gitignore
 ```
 
 ## License
